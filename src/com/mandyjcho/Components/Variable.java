@@ -30,6 +30,6 @@ public class Variable {
 
     @Override
     public int hashCode() {
-        return Character.hashCode(variable);
+        return domain.hashCode();
     }
 }
