@@ -8,23 +8,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
-    List<Variable> variables = new ArrayList<>();
-    List<Constraint> constraints = new ArrayList<>();
+    static List<Variable> variables = new ArrayList<>();
+    static List<Constraint> constraints = new ArrayList<>();
+
     public static void main(String...args) {
 	    // Extract arguments
-
+        processFile(args[0], variables);
         // Extract constraints
     }
 
-    public static <T> void processFile(String path, List<T> list) throws IOException {
+    public static <T> void processFile(String path, List<T> list) {
+        Pattern pattern = Pattern.compile("[A-Z0-9]|[<>=]+");
         try(Scanner scan = new Scanner(new File(path))) {
             while(scan.hasNext()) {
-                list.add(new T(scan.nextLine().split("(\\s|:)")));
+                Matcher match = pattern.matcher(scan.nextLine());
+                match.find();
             }
-
-        } catch(Exception e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
