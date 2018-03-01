@@ -26,7 +26,7 @@ public enum Operator {
         return symbol;
     }
 
-    public Operator get(String symbol) {
+    public static Operator get(String symbol) {
         return map.get(symbol);
     }
 }

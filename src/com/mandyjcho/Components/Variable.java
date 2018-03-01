@@ -5,18 +5,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Variable {
-    private char variable;
+    private String variable;
     private List<Integer> domain;
 
-    public Variable(String[] input) {
-        variable = input[0].charAt(0);
-        domain = Stream.of(input)
+    public Variable(List<String> input) {
+        variable = input.get(0);
+        domain = input.stream()
                 .skip(1)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public char getVariable() {
+    public String getVariable() {
         return variable;
     }
 
