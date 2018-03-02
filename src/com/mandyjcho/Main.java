@@ -10,9 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    static HashMap<String, Variable> variables = new HashMap<>();
-    static List<Constraint> constraints = new ArrayList<>();
-    static boolean enforceFC;
+    static private HashMap<String, Variable> variables = new HashMap<>();
+    static private List<Constraint> constraints = new ArrayList<>();
+    static private boolean enforceFC;
 
     public static void main(String...args) {
 	    // Extract arguments
