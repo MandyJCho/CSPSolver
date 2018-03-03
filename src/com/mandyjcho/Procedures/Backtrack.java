@@ -31,13 +31,21 @@ public class Backtrack {
      * Gets most constraining variable whenever the solver needs to choose a variable while searching
      */
     private static Variable getMostConstrainingVariable() {
-    //    • Whenever the solver needs to choose a variable during the search process, apply the most
-    //    constrained variable heuristic, breaking ties using the most constraining variable heuristic.
-    //    If more than one variable remains after applying these heuristics, break ties alphabetically.
-    // count number of constraints
-    // disclude any constraints with assigned variables
+        // Count frequencies
+        HashMap<Variable, Integer> constraintCount = new HashMap<>();
+        for (Constraint constraint : constraints) {
+            for (Variable variable : constraint.getVariables())
+                if (variable.getAssignment() == null)
+                    constraintCount.put(variable, constraintCount.getOrDefault(variable, -1) + 1);
+        }
+
+        // Find most constrainted
+        Variable variable = null;
+        
+
         return null;
     }
+
 //    • Whenever the solver needs to choose a value during the search process, apply the least
 //    constraining value heuristic. If more than one value remains after applying this heuristic,
 //    break ties by preferring smaller values.

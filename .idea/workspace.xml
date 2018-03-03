@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6cec09c-fdfd-4a8d-8aaf-8fb595ff2daa" name="Default" comment="complete input processing">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java" afterPath="$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java" />
+      <change beforePath="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java" afterPath="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +31,8 @@
       <file leaf-file-name="Backtrack.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="604">
+              <caret line="43" column="8" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,12 +89,14 @@
       <file leaf-file-name="Constraint.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="451">
-              <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+            <state relative-caret-position="442">
+              <caret line="32" column="35" lean-forward="true" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#911#912#0" expanded="true" />
-                <element signature="e#973#974#0" expanded="true" />
+                <element signature="e#964#965#0" expanded="true" />
+                <element signature="e#1026#1027#0" expanded="true" />
+                <element signature="e#1234#1235#0" expanded="true" />
+                <element signature="e#1302#1303#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,10 +152,10 @@
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Procedure.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Components/Operator.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Heuristics.java" />
-        <option value="$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Main.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Components/Variable.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Backtrack.java" />
+        <option value="$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java" />
         <option value="$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java" />
       </list>
     </option>
@@ -300,7 +302,7 @@
       <option name="presentableId" value="Default" />
       <updated>1519746725789</updated>
       <workItem from="1519746729869" duration="4824000" />
-      <workItem from="1520039930232" duration="6320000" />
+      <workItem from="1520039930232" duration="8548000" />
     </task>
     <task id="LOCAL-00001" summary="complete input processing">
       <created>1519941316988</created>
@@ -313,10 +315,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24792000" />
+    <option name="totallyTimeSpent" value="27020000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1616" height="1087" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -331,7 +334,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -420,8 +423,10 @@
           <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -481,8 +486,10 @@
           <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -523,8 +530,10 @@
           <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -584,8 +593,10 @@
           <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -664,18 +675,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Components/ComponentFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Procedures/Procedure.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Components/Operator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -696,6 +695,16 @@
         <state relative-caret-position="68">
           <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -723,20 +732,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Components/Constraint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="34" column="37" lean-forward="false" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+        <state relative-caret-position="442">
+          <caret line="32" column="35" lean-forward="true" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#964#965#0" expanded="true" />
+            <element signature="e#1026#1027#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/mandyjcho/Procedures/Backtrack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="604">
+          <caret line="43" column="8" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

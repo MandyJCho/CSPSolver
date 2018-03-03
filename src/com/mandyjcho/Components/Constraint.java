@@ -1,5 +1,7 @@
 package com.mandyjcho.Components;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,8 +39,17 @@ public class Constraint {
 
 
     /**
+     * Gets variables in the constraint that have yet to be assigned
+     *
+     * @return a list of the unconstrained variables in the constraint
+     */
+    public List<Variable> getVariables() {
+        return Arrays.asList(new Variable[] {first, second});
+    }
+
+    /**
      * Enforce a constraint on a variable's domain
-     * ** Order matters in the case of we want to enforce first onto second and vice versa
+     *
      * @param enforcee the variable whose domain is going to be reduced
      * @param value    the value we're filtering by
      * @return the boolean
