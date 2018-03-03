@@ -4,9 +4,8 @@ import java.util.HashMap;
 
 public enum Operator {
     GREATER(">"),
-    GREATEREQ(">="),
     LESS("<"),
-    LESSEQ("<="),
+    NOTEQUAL("!"),
     EQUAL("=");
 
     private static HashMap<String, Operator> map = new HashMap<>();

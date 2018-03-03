@@ -1,5 +1,7 @@
 package com.mandyjcho.Components;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -7,6 +9,7 @@ import java.util.stream.Stream;
 public class Variable {
     private String variable;
     private List<Integer> domain;
+    private Integer assignment;
 
     public Variable(List<String> input) {
         variable = input.get(0);
@@ -14,6 +17,19 @@ public class Variable {
                 .skip(1)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    public Variable(Variable v) {
+        v.variable = variable;
+        v.domain = new ArrayList<>(domain);
+    }
+
+    public Integer getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(Integer assignment) {
+        this.assignment = assignment;
     }
 
     public String getVariable() {
@@ -24,7 +40,11 @@ public class Variable {
         return domain;
     }
 
-    public boolean forwardCheck(List<Constraint> constraints) {
+    public void setDomain(List<Integer> domain) {
+        this.domain = domain;
+    }
+
+    public boolean isEmpty() {
         return domain.isEmpty();
     }
 
@@ -32,4 +52,5 @@ public class Variable {
     public int hashCode() {
         return domain.hashCode();
     }
-}
+
+    }
