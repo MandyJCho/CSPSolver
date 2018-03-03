@@ -2,6 +2,7 @@ package com.mandyjcho;
 
 import com.mandyjcho.Components.Constraint;
 import com.mandyjcho.Components.Variable;
+import com.mandyjcho.Procedures.Backtrack;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,27 +14,27 @@ import java.util.regex.Pattern;
  * The type Main.
  */
 public class Main {
-    static private HashMap<String, Variable> variables = new HashMap<>();
-    static private List<Constraint> constraints = new ArrayList<>();
-    static private boolean enforceFC;
-
-    /**
+   /**
      * Main.
      *
      * @param args the args
      */
     public static void main(String...args) {
 	    // Extract arguments
+        HashMap<String, Variable> variables = new HashMap<>();
         for (List<String> list : processFile(args[0]))
             variables.put(list.get(0), new Variable(list));
 
         // Extract constraint
+        List<Constraint> constraints = new ArrayList<>();
         for(List<String> list : processFile(args[1]))
             constraints.add(new Constraint(list, variables));
 
-        enforceFC = args[2].equals("fc");
+        boolean enforceFC = args[2].equals("fc");
 
-        solveWithLimit();
+        // Run backtracking algorithm
+        Backtrack backtrack = new Backtrack(variables, constraints, enforceFC);
+        backtrack.solve();
     }
 
     /**
@@ -62,23 +63,4 @@ public class Main {
         }
     }
 
-    /**
-     * Attempts to satisfy the constraint within 30 moves
-     */
-    public static void solveWithLimit() {
-
-
-    }
-
-//    • Whenever the solver needs to choose a variable during the search process, apply the most
-//    constrained variable heuristic, breaking ties using the most constraining variable heuristic.
-//    If more than one variable remains after applying these heuristics, break ties alphabetically.
-
-//    • Whenever the solver needs to choose a value during the search process, apply the least
-//    constraining value heuristic. If more than one value remains after applying this heuristic,
-//    break ties by preferring smaller values.
-
-        // check domains
-        // checks if any of the domains are 0-ed out
-
-    }
+}

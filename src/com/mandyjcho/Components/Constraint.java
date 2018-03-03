@@ -44,7 +44,7 @@ public class Constraint {
      * @return the boolean
      */
     public Boolean enforceValueOn(Variable enforcee, int value) {
-        // Validate enforcement
+        // Validate parameters before using
         Variable enforcer = enforcee == first ? second : first;
         if (!containsVariable(enforcee)) return null;
         if (!enforcer.getDomain().contains(value)) return null;
