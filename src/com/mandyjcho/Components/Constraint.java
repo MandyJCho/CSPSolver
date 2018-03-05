@@ -50,10 +50,6 @@ public class Constraint {
         return Arrays.asList(new Variable[] {first, second});
     }
 
-    public boolean isApplicable() {
-        return first.getAssignment() == null && second.getAssignment() == null;
-    }
-
     /**
      * Enforce a constraint on a variable's domain
      *

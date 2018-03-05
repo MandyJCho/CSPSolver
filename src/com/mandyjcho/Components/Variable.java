@@ -1,18 +1,15 @@
 package com.mandyjcho.Components;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Variable implements Comparable<Variable> {
-    private String variable;
+    private String name;
     private List<Integer> domain;
-    private Integer assignment;
 
     public Variable(List<String> input) {
-        variable = input.get(0);
+        name = input.get(0);
         domain = input.stream()
                 .skip(1)
                 .map(Integer::parseInt)
@@ -20,20 +17,12 @@ public class Variable implements Comparable<Variable> {
     }
 
     public Variable(Variable v) {
-        v.variable = variable;
+        v.name = name;
         v.domain = new ArrayList<>(domain);
     }
 
-    public Integer getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Integer assignment) {
-        this.assignment = assignment;
-    }
-
-    public String getVariable() {
-        return variable;
+    public String getName() {
+        return name;
     }
 
     public List<Integer> getDomain() {
@@ -52,17 +41,32 @@ public class Variable implements Comparable<Variable> {
         return domain.size();
     }
 
+    public boolean equalsType(Variable variable) {
+        return variable.getName().equals(name);
+    }
+
     @Override
     public int hashCode() {
         return domain.hashCode();
     }
 
     @Override
-    public String toString() { return variable; }
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Variable)) return false;
+
+        if (obj == this) return true;
+
+        Variable objVariable = (Variable) obj;
+
+        return objVariable.getName().equals(this.name) && objVariable.getDomain().equals(domain);
+    }
+
+    @Override
+    public String toString() { return name; }
 
     @Override
     public int compareTo(Variable other) {
-        return variable.compareTo(other.getVariable());
+        return name.compareTo(other.getName());
     }
     }
 
