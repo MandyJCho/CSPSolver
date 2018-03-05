@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Variable {
+public class Variable implements Comparable<Variable> {
     private String variable;
     private List<Integer> domain;
     private Integer assignment;
@@ -48,9 +48,21 @@ public class Variable {
         return domain.isEmpty();
     }
 
+    public int size() {
+        return domain.size();
+    }
+
     @Override
     public int hashCode() {
         return domain.hashCode();
     }
 
+    @Override
+    public String toString() { return variable; }
+
+    @Override
+    public int compareTo(Variable other) {
+        return variable.compareTo(other.getVariable());
     }
+    }
+

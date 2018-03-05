@@ -37,6 +37,9 @@ public class Constraint {
         return variable == first || variable == second;
     }
 
+    public Operator getOperator() {
+        return operator;
+    }
 
     /**
      * Gets variables in the constraint that have yet to be assigned
@@ -47,6 +50,10 @@ public class Constraint {
         return Arrays.asList(new Variable[] {first, second});
     }
 
+    public boolean isApplicable() {
+        return first.getAssignment() == null && second.getAssignment() == null;
+    }
+
     /**
      * Enforce a constraint on a variable's domain
      *
@@ -54,13 +61,12 @@ public class Constraint {
      * @param value    the value we're filtering by
      * @return the boolean
      */
-    public Boolean enforceValueOn(Variable enforcee, int value) {
+    public List<Integer> enforceOn(Variable enforcee, int value) {
         // Validate parameters before using
         Variable enforcer = enforcee == first ? second : first;
-        if (!containsVariable(enforcee)) return null;
-        if (!enforcer.getDomain().contains(value)) return null;
+        if (!containsVariable(enforcee) || !enforcer.getDomain().contains(value)) return new ArrayList<>();
 
-        List<Integer> domain = enforcee.getDomain().stream().filter((enforceeValue) -> {
+        return enforcee.getDomain().stream().filter((enforceeValue) -> {
             switch(operator) {
                 case LESS:
                     return value < enforceeValue;
@@ -72,9 +78,6 @@ public class Constraint {
                     return value != enforceeValue;
             }
         }).collect(Collectors.toList());
-
-        enforcee.setDomain(domain);
-
-        return enforcee.isEmpty();
     }
+
 }

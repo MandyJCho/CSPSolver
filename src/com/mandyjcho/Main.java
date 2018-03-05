@@ -33,8 +33,7 @@ public class Main {
         boolean enforceFC = args[2].equals("fc");
 
         // Run backtracking algorithm
-        Backtrack backtrack = new Backtrack(variables, constraints, enforceFC);
-        backtrack.solve();
+        new Backtrack(variables, constraints, enforceFC).solve();
     }
 
     /**
