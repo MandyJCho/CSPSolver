@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Variable implements Comparable<Variable> {
-    private String name;
-    private List<Integer> domain;
+    private final String name;
+    private final List<Integer> domain;
 
     public Variable(List<String> input) {
         name = input.get(0);
@@ -17,8 +17,8 @@ public class Variable implements Comparable<Variable> {
     }
 
     public Variable(Variable v) {
-        v.name = name;
-        v.domain = new ArrayList<>(domain);
+        this.name = v.name;
+        this.domain = new ArrayList<>(v.domain);
     }
 
     public String getName() {
@@ -26,11 +26,7 @@ public class Variable implements Comparable<Variable> {
     }
 
     public List<Integer> getDomain() {
-        return domain;
-    }
-
-    public void setDomain(List<Integer> domain) {
-        this.domain = domain;
+        return new ArrayList<>(domain);
     }
 
     public boolean isEmpty() {

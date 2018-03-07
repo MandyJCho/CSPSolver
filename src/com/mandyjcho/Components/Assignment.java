@@ -1,13 +1,13 @@
 package com.mandyjcho.Components;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 /**
  * Created by Mandy Cho :) on 3/4/18.
  */
 public class Assignment {
-    private HashMap<Variable, Integer> solution;
+    private LinkedHashMap<Variable, Integer> solution;
     private boolean result;
 
     public boolean isGoal() {
@@ -19,11 +19,11 @@ public class Assignment {
     }
 
     public Assignment() {
-        solution = new HashMap<>();
+        solution = new LinkedHashMap<>();
     }
 
     public Assignment(Assignment assignment) {
-        this.solution = new HashMap<>(assignment.solution);
+        this.solution = new LinkedHashMap<>(assignment.solution);
     }
 
     public boolean assign(Variable variable, int value) {
@@ -40,6 +40,13 @@ public class Assignment {
 
     public void remove(Variable variable) {
         solution.remove(variable);
+    }
+
+    public boolean isConstraintApplicable(Constraint constraint) {
+        for (Variable variable : constraint.getVariables())
+            if (solution.containsKey(variable)) return false;
+
+        return true;
     }
 
     @Override

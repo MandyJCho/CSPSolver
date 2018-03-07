@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
  * Denotes relationships between variables
  */
 public class Constraint {
-    private Variable first;
-    private Operator operator;
-    private Variable second;
+    private final Variable first;
+    private final Operator operator;
+    private final Variable second;
 
     /**
      * Instantiates a new Constraint.
@@ -47,24 +47,26 @@ public class Constraint {
      * @return a list of the unconstrained variables in the constraint
      */
     public List<Variable> getVariables() {
-        return Arrays.asList(new Variable[] {first, second});
+        return Arrays.asList(first, second);
     }
 
     /**
      * Enforce a constraint on a variable's domain
      *
-     * @param enforcee the variable whose domain is going to be reduced
+     * @param enforcer the variable we want to rule by
      * @param value    the value we're filtering by
      * @return the boolean
      */
-    public List<Integer> enforceOn(Variable enforcee, int value) {
+    public List<Integer> enforceOn(Variable enforcer, int value) {
         // Validate parameters before using
-        Variable enforcer = enforcee == first ? second : first;
-        if (!containsVariable(enforcee) || !enforcer.getDomain().contains(value)) return new ArrayList<>();
+        Variable enforcee = enforcer == first ? second : first;
+        if (!containsVariable(enforcer) || !enforcee.getDomain().contains(value)) return new ArrayList<>();
 
-        return enforcee.getDomain().stream().filter((enforceeValue) -> {
+        if (enforcer == first)
+            return enforcee.getDomain().stream().filter((enforceeValue) -> {
             switch(operator) {
                 case LESS:
+                    System.out.println(value + " " + enforceeValue);
                     return value < enforceeValue;
                 case GREATER:
                     return value > enforceeValue;
@@ -74,6 +76,23 @@ public class Constraint {
                     return value != enforceeValue;
             }
         }).collect(Collectors.toList());
+
+        return enforcee.getDomain().stream().filter((enforceeValue) -> {
+            switch(operator) {
+                case LESS:
+                    return value > enforceeValue;
+                case GREATER:
+                    return value < enforceeValue;
+                case EQUAL:
+                    return value == enforceeValue;
+                default:
+                    return value != enforceeValue;
+            }
+        }).collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return first + " " + operator.getSymbol() + " " + second;
+    }
 }
