@@ -5,62 +5,76 @@ import com.mandyjcho.Components.Constraint;
 import com.mandyjcho.Components.Variable;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Backtrack {
-    private HashMap<String, Variable> variableMapping;
+    private HashMap<Variable, List<Integer>> variableDomainMap;
     private List<Constraint> constraints;
     private boolean enforceFC;
 
     public Backtrack(HashMap<String, Variable> variableMapping, List<Constraint> constraints, boolean enforceFC) {
-        this.variableMapping = variableMapping;
+        variableDomainMap = new HashMap<>();
+        for (Variable variable : variableMapping.values())
+            variableDomainMap.put(variable, variable.getDomain());
+
         this.constraints = constraints;
+        Heuristics.setConstraints(constraints);
         this.enforceFC = enforceFC;
     }
 
     //    • Whenever the solver needs to choose a value during the search process, apply the least
     //    constraining value heuristic. If more than one value remains after applying this heuristic,
     //    break ties by preferring smaller values.
-    private List<Integer> orderDomain(Variable variable) {
-        // call lists.sort and use comparator
-        // cache the results to increase speed
-        return null;
+    private List<Integer> orderDomain(Variable variable, List<Integer> domain) {
+        domain.sort((a, b) -> {
+            int hOfA = Heuristics.getLeastConstrainingValueScore(variable, a);
+            int hOfB = Heuristics.getLeastConstrainingValueScore(variable, b);
+
+            if (hOfA == hOfB) return a - b;
+
+            return hOfB - hOfA;
+        });
+
+        return domain;
     }
 
-    private boolean isConsistent() {
+    private boolean isConsistent(Variable variable, int value) {
+
         return true;
     }
 
     private void forwardCheck() {}
 
     public void solve() {
-        Assignment assignment = solve(new Assignment(), new ArrayList<>(variableMapping.values()));
-        System.out.println(assignment);
+        solve(new Assignment(), variableDomainMap);
     }
 
-    private Assignment solve(Assignment assignment, List<Variable> variables) {
-        if (variables.size() == 0) {
+    private boolean solve(Assignment assignment, HashMap<Variable, List<Integer>> unassignedVars) {
+        if (unassignedVars.size() == 0) {
             assignment.setResult(true);
-            return assignment;
+            System.out.println(assignment + " solution");
+            return true;
         }
 
-        Variable variable = Heuristics.getMostConstrainedVariable(variables, constraints);
-        List<Integer> domain = orderDomain(variable);
+        Variable variable = Heuristics.getMostConstrainedVariable(unassignedVars.keySet(), assignment);
+        List<Integer> domain = orderDomain(variable, unassignedVars.get(variable));
+        unassignedVars.remove(variable);
+        System.out.println(variable + " domain: " + domain.toString());
         Assignment nextAssignment = new Assignment(assignment);
+
         for (int value : domain) {
             if (isConsistent()) {
                 nextAssignment.assign(variable, value);
                 if (enforceFC) forwardCheck();
-                List<Variable> nextVariables = variables.stream()
-                                                        .filter(v -> v != variable)
-                                                        .collect(Collectors.toList());
-                return nextAssignment;
-//                Assignment result = solve(nextAssignment, nextVariables);
-//                if (result.isGoal()) return result;
-//                nextAssignment.remove(variable);
+
+                if (solve(nextAssignment, unassignedVars)) return true;
+                System.out.println(assignment + " failure");
+                nextAssignment.remove(variable);
             }
         }
-        return assignment;
+
+        // Print here
+        System.out.println(assignment + " failure");
+        return false;
     }
 
 }
