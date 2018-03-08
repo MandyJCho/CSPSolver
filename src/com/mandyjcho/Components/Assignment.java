@@ -1,22 +1,12 @@
 package com.mandyjcho.Components;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by Mandy Cho :) on 3/4/18.
  */
 public class Assignment {
     private LinkedHashMap<Variable, Integer> solution;
-    private boolean result;
-
-    public boolean isGoal() {
-        return result;
-    }
-
-    public void setResult(boolean result) {
-        this.result = result;
-    }
 
     public Assignment() {
         solution = new LinkedHashMap<>();
@@ -26,12 +16,10 @@ public class Assignment {
         this.solution = new LinkedHashMap<>(assignment.solution);
     }
 
-    public boolean assign(Variable variable, int value) {
-        if (!variable.getDomain().contains(value)) return false;
+    public void assign(Variable variable, int value) {
+        if (!variable.getDomain().contains(value)) return;
 
         solution.put(variable, value);
-
-        return true;
     }
 
     public int get(Variable variable) {
@@ -47,6 +35,14 @@ public class Assignment {
             if (solution.containsKey(variable)) return false;
 
         return true;
+    }
+
+    public HashMap<Variable, List<Integer>> getFormattedSolution() {
+        HashMap<Variable, List<Integer>> formattedSolution = new HashMap<>();
+        for (Variable variable : solution.keySet())
+            formattedSolution.put(variable, List.of(solution.get(variable)));
+
+        return formattedSolution;
     }
 
     @Override
@@ -65,6 +61,9 @@ public class Assignment {
 
     @Override
     public String toString() {
-        return solution.toString() + " " + result;
+        StringBuilder sb = new StringBuilder();
+        for (Variable variable : solution.keySet())
+            sb.append(" " + variable + "=" + solution.get(variable) + ",");
+        return sb.deleteCharAt(sb.length()-1).toString();
     }
 }

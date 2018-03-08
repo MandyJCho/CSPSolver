@@ -16,36 +16,30 @@ public class Heuristics {
         Heuristics.constraints = constraints;
     }
 
-    static public Variable getMostConstrainedVariable(Set<Variable> variables, Assignment assignment) {
-        // find smallest domain size
+    static public Variable getMostConstrainedVariable(HashMap<Variable, List<Integer>> unassignedVars, Assignment assignment) {
         int min = Integer.MAX_VALUE;
-        for (Variable variable : variables) min = Math.min(min, variable.size());
+        for (Variable variable : unassignedVars.keySet())
+            min = Math.min(min, unassignedVars.get(variable).size());
 
-        // filter based on domain size
         List<Variable> matches = new ArrayList<>();
-        for(Variable variable : variables)
-            if (variable.size() == min) matches.add(variable);
+        for(Variable variable : unassignedVars.keySet())
+            if (unassignedVars.get(variable).size() == min) matches.add(variable);
 
-        // resolve ties
         return getMostConstrainingVariable(matches, assignment);
     }
 
     static private Variable getMostConstrainingVariable(List<Variable> variables, Assignment assignment) {
         if (variables.size() == 1) return variables.get(0);
 
-        System.out.println("Contenders: " + variables.toString() );
-
         HashMap<Variable, Integer> constraintCount = new HashMap<>();
         for (Variable variable : variables)
             constraintCount.put(variable, 0);
 
-        // count the constraints
-        // TODO: disclude constraints with assignmed variables from count
         for(Constraint constraint : constraints) {
             if (assignment.isConstraintApplicable(constraint)) {
-                for (Variable conVariable : constraint.getVariables())
-                    if(constraintCount.containsKey(conVariable))
-                        constraintCount.put(conVariable, constraintCount.get(conVariable) + 1);
+                for (Variable constraintVar : constraint.getVariables())
+                    if(constraintCount.containsKey(constraintVar))
+                        constraintCount.put(constraintVar, constraintCount.get(constraintVar) + 1);
             }
         }
 
@@ -60,12 +54,12 @@ public class Heuristics {
         return bestChoice;
     }
 
-    public static int getLeastConstrainingValueScore(Variable variable, int value) {
+    public static int getLeastConstrainingValueScore(Variable variable, int value, HashMap<Variable, List<Integer>> unassignedVars) {
         int sum = 0;
 
         for (Constraint constraint : constraints)
-            if (constraint.containsVariable(variable))
-                sum += constraint.enforceOn(variable, value).size();
+            if (constraint.contains(variable))
+                sum += constraint.enforceOn(variable, value, unassignedVars).size();
 
         return sum;
     }

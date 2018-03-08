@@ -16,11 +16,6 @@ public class Variable implements Comparable<Variable> {
                 .collect(Collectors.toList());
     }
 
-    public Variable(Variable v) {
-        this.name = v.name;
-        this.domain = new ArrayList<>(v.domain);
-    }
-
     public String getName() {
         return name;
     }
@@ -31,10 +26,6 @@ public class Variable implements Comparable<Variable> {
 
     public boolean isEmpty() {
         return domain.isEmpty();
-    }
-
-    public int size() {
-        return domain.size();
     }
 
     public boolean equalsType(Variable variable) {
@@ -64,5 +55,5 @@ public class Variable implements Comparable<Variable> {
     public int compareTo(Variable other) {
         return name.compareTo(other.getName());
     }
-    }
+}
 

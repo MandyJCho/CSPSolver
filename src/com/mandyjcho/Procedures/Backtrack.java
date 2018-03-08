@@ -4,12 +4,14 @@ import com.mandyjcho.Components.Assignment;
 import com.mandyjcho.Components.Constraint;
 import com.mandyjcho.Components.Variable;
 
+import java.time.temporal.ValueRange;
 import java.util.*;
 
 public class Backtrack {
     private HashMap<Variable, List<Integer>> variableDomainMap;
     private List<Constraint> constraints;
     private boolean enforceFC;
+    private int count = 0;
 
     public Backtrack(HashMap<String, Variable> variableMapping, List<Constraint> constraints, boolean enforceFC) {
         variableDomainMap = new HashMap<>();
@@ -21,14 +23,15 @@ public class Backtrack {
         this.enforceFC = enforceFC;
     }
 
-    //    • Whenever the solver needs to choose a value during the search process, apply the least
-    //    constraining value heuristic. If more than one value remains after applying this heuristic,
-    //    break ties by preferring smaller values.
-    private List<Integer> orderDomain(Variable variable, List<Integer> domain) {
-        domain.sort((a, b) -> {
-            int hOfA = Heuristics.getLeastConstrainingValueScore(variable, a);
-            int hOfB = Heuristics.getLeastConstrainingValueScore(variable, b);
+    private List<Integer> orderDomain(Variable variable, HashMap<Variable, List<Integer>> unassignedVars) {
+        HashMap<Integer, Integer> evaluations = new HashMap<>();
+        List<Integer> domain = unassignedVars.get(variable);
 
+        for(int value : domain)
+            evaluations.put(value, Heuristics.getLeastConstrainingValueScore(variable, value, unassignedVars));
+
+        domain.sort((a, b) -> {
+            int hOfA = evaluations.get(a), hOfB = evaluations.get(b);
             if (hOfA == hOfB) return a - b;
 
             return hOfB - hOfA;
@@ -37,7 +40,13 @@ public class Backtrack {
         return domain;
     }
 
-    private boolean isConsistent(Variable variable, int value) {
+    private boolean isConsistent(Variable selection, int value, Assignment assignment, HashMap<Variable, List<Integer>> unassignedVars) {
+        HashMap<Variable, List<Integer>> variables = new HashMap<>(unassignedVars);
+        variables.putAll(assignment.getFormattedSolution());
+
+        for(Constraint constraint : constraints)
+            if (constraint.contains(selection) && constraint.enforceOn(selection, value, variables).size() == 0)
+                return false;
 
         return true;
     }
@@ -50,30 +59,28 @@ public class Backtrack {
 
     private boolean solve(Assignment assignment, HashMap<Variable, List<Integer>> unassignedVars) {
         if (unassignedVars.size() == 0) {
-            assignment.setResult(true);
-            System.out.println(assignment + " solution");
+            System.out.println(++count + "." + assignment + "  solution");
             return true;
         }
 
-        Variable variable = Heuristics.getMostConstrainedVariable(unassignedVars.keySet(), assignment);
-        List<Integer> domain = orderDomain(variable, unassignedVars.get(variable));
+        Variable variable = Heuristics.getMostConstrainedVariable(unassignedVars, assignment);
+        List<Integer> domain = orderDomain(variable, unassignedVars);
         unassignedVars.remove(variable);
-        System.out.println(variable + " domain: " + domain.toString());
         Assignment nextAssignment = new Assignment(assignment);
-
         for (int value : domain) {
-            if (isConsistent()) {
-                nextAssignment.assign(variable, value);
+            if (count == 30) System.exit(0);
+            nextAssignment.assign(variable, value);
+            if (isConsistent(variable, value, assignment, unassignedVars)) {
                 if (enforceFC) forwardCheck();
-
                 if (solve(nextAssignment, unassignedVars)) return true;
-                System.out.println(assignment + " failure");
-                nextAssignment.remove(variable);
             }
+            count++;
+            System.out.println(count + "." + nextAssignment + "  failure");
+            nextAssignment.remove(variable);
         }
 
-        // Print here
-        System.out.println(assignment + " failure");
+        count++;
+        System.out.println(count + "." + nextAssignment + "  failure");
         return false;
     }
 

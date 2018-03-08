@@ -44,7 +44,7 @@ public class Main {
      */
     public static List<List<String>> processFile(String path) {
         List<List<String>> lines = new ArrayList<>();
-        Pattern pattern = Pattern.compile("[A-Z0-9]|[<>=]+");
+        Pattern pattern = Pattern.compile("[A-Z0-9]+|[<>=]+");
         try(Scanner scan = new Scanner(new File(path))) {
             while(scan.hasNext()) {
                 ArrayList<String> parsedInput = new ArrayList<>();
