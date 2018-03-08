@@ -21,12 +21,14 @@ public class Constraint {
         return variable == first || variable == second;
     }
 
-    public Operator getOperator() {
-        return operator;
-    }
-
     public List<Variable> getVariables() {
         return Arrays.asList(first, second);
+    }
+
+    public Variable getOther(Variable variable) {
+        if (variable == first) return second;
+        else if (variable == second) return first;
+        return null;
     }
 
     public List<Integer> enforceOn(Variable enforcer, int value, HashMap<Variable, List<Integer>> variables) {

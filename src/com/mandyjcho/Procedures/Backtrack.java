@@ -51,7 +51,15 @@ public class Backtrack {
         return true;
     }
 
-    private void forwardCheck() {}
+    private void forwardCheck(Variable variable, int value, HashMap<Variable, List<Integer>> unassignedVars) {
+        // parameters should receive unassigned variables, variable itself and the value
+        // constraints with enforcer still unassigned should get propagated
+        for(Constraint constraint : constraints) {
+            Variable other = constraint.getOther(variable);
+            if (other != null && unassignedVars.containsKey(other))
+                unassignedVars.put(other, constraint.enforceOn(variable, value, unassignedVars));
+        }
+    }
 
     public void solve() {
         solve(new Assignment(), variableDomainMap);
@@ -68,15 +76,15 @@ public class Backtrack {
         unassignedVars.remove(variable);
         Assignment nextAssignment = new Assignment(assignment);
         for (int value : domain) {
-            if (count == 30) System.exit(0);
             nextAssignment.assign(variable, value);
             if (isConsistent(variable, value, assignment, unassignedVars)) {
-                if (enforceFC) forwardCheck();
+                if (enforceFC) forwardCheck(variable, value, unassignedVars);
                 if (solve(nextAssignment, unassignedVars)) return true;
             }
             count++;
             System.out.println(count + "." + nextAssignment + "  failure");
             nextAssignment.remove(variable);
+            if (count == 30) System.exit(0);
         }
 
         count++;

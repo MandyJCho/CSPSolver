@@ -1,5 +1,6 @@
-A = G
 A > B
-C > B
-D > E
-G > C
+B > F
+A > C
+C > E
+A > D
+D = E

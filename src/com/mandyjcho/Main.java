@@ -14,34 +14,25 @@ import java.util.regex.Pattern;
  * The type Main.
  */
 public class Main {
-   /**
-     * Main.
-     *
-     * @param args the args
-     */
     public static void main(String...args) {
-	    // Extract arguments
-        HashMap<String, Variable> variables = new HashMap<>();
-        for (List<String> list : processFile(args[0]))
-            variables.put(list.get(0), new Variable(list));
+        try {
+            HashMap<String, Variable> variables = new HashMap<>();
+            for (List<String> list : processFile(args[0]))
+                variables.put(list.get(0), new Variable(list));
 
-        // Extract constraint
-        List<Constraint> constraints = new ArrayList<>();
-        for(List<String> list : processFile(args[1]))
-            constraints.add(new Constraint(list, variables));
+            List<Constraint> constraints = new ArrayList<>();
+            for (List<String> list : processFile(args[1]))
+                constraints.add(new Constraint(list, variables));
 
-        boolean enforceFC = args[2].equals("fc");
+            boolean enforceFC = args[2].equals("fc");
 
-        // Run backtracking algorithm
-        new Backtrack(variables, constraints, enforceFC).solve();
+            new Backtrack(variables, constraints, enforceFC).solve();
+
+        } catch(NullPointerException e) {
+            System.out.println("Expected 3 arguments but got " + args.length);
+        }
     }
 
-    /**
-     * Process each line in the file for the variables and constraints
-     *
-     * @param path path to resource file
-     * @return a list of string lists. Each string lists represents a parsed line from the input file
-     */
     public static List<List<String>> processFile(String path) {
         List<List<String>> lines = new ArrayList<>();
         Pattern pattern = Pattern.compile("[A-Z0-9]+|[<>=]+");

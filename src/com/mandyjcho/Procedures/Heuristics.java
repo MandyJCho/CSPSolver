@@ -10,7 +10,7 @@ import java.util.*;
  * Created by Mandy Cho :) on 3/4/18.
  */
 public class Heuristics {
-    static List<Constraint> constraints;
+    private static List<Constraint> constraints;
 
     public static void setConstraints (List<Constraint> constraints) {
         Heuristics.constraints = constraints;

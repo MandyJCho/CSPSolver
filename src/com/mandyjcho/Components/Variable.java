@@ -16,20 +16,12 @@ public class Variable implements Comparable<Variable> {
                 .collect(Collectors.toList());
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
     public List<Integer> getDomain() {
         return new ArrayList<>(domain);
-    }
-
-    public boolean isEmpty() {
-        return domain.isEmpty();
-    }
-
-    public boolean equalsType(Variable variable) {
-        return variable.getName().equals(name);
     }
 
     @Override

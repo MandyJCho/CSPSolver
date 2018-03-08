@@ -22,10 +22,6 @@ public class Assignment {
         solution.put(variable, value);
     }
 
-    public int get(Variable variable) {
-        return solution.getOrDefault(variable, null);
-    }
-
     public void remove(Variable variable) {
         solution.remove(variable);
     }
