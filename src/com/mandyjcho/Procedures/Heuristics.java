@@ -58,8 +58,7 @@ public class Heuristics {
         int sum = 0;
 
         for (Constraint constraint : constraints)
-            if (constraint.contains(variable))
-                sum += constraint.enforceOn(variable, value, unassignedVars).size();
+            if (constraint.contains(variable)) sum += constraint.enforceOn(variable, value, unassignedVars).size();
 
         return sum;
     }
