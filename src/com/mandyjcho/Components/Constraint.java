@@ -21,6 +21,13 @@ public class Constraint {
         return variable == first || variable == second;
     }
 
+    public boolean contains(List<Variable> variables) {
+        for(Variable variable : variables)
+            if (!contains(variable)) return false;
+
+        return true;
+    }
+
     public List<Variable> getVariables() {
         return Arrays.asList(first, second);
     }

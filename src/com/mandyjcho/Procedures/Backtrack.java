@@ -4,7 +4,6 @@ import com.mandyjcho.Components.Assignment;
 import com.mandyjcho.Components.Constraint;
 import com.mandyjcho.Components.Variable;
 
-import java.time.temporal.ValueRange;
 import java.util.*;
 
 public class Backtrack {
@@ -40,25 +39,31 @@ public class Backtrack {
         return domain;
     }
 
-    private boolean isConsistent(Variable selection, int value, Assignment assignment, HashMap<Variable, List<Integer>> unassignedVars) {
-        HashMap<Variable, List<Integer>> variables = new HashMap<>(unassignedVars);
-        variables.putAll(assignment.getFormattedSolution());
+    private boolean isConsistent(Variable selection, int value, Assignment assignment) {
+        HashMap<Variable, List<Integer>> variables = new HashMap<>(assignment.getFormattedSolution());
 
-        for(Constraint constraint : constraints)
-            if (constraint.contains(selection) && constraint.enforceOn(selection, value, variables).size() == 0)
+        for(Constraint constraint : constraints) {
+            Variable other = constraint.getOther(selection);
+            if (!variables.containsKey(other)) continue;
+            List<Variable> constraintVars = List.of(selection, other);
+            if (constraint.contains(constraintVars) && constraint.enforceOn(selection, value, variables).size() == 0)
                 return false;
+        }
 
         return true;
     }
 
-    private void forwardCheck(Variable variable, int value, HashMap<Variable, List<Integer>> unassignedVars) {
-        // parameters should receive unassigned variables, variable itself and the value
-        // constraints with enforcer still unassigned should get propagated
+    private boolean forwardCheck(Variable variable, int value, HashMap<Variable, List<Integer>> unassignedVars) {
         for(Constraint constraint : constraints) {
             Variable other = constraint.getOther(variable);
-            if (other != null && unassignedVars.containsKey(other))
-                unassignedVars.put(other, constraint.enforceOn(variable, value, unassignedVars));
+            if (other != null && unassignedVars.containsKey(other)) {
+                List<Integer> domain = constraint.enforceOn(variable, value, unassignedVars);
+                if (domain.size() == 0) return true;
+                unassignedVars.put(other, domain);
+            }
         }
+
+        return false;
     }
 
     public void solve() {
@@ -77,18 +82,18 @@ public class Backtrack {
         Assignment nextAssignment = new Assignment(assignment);
         for (int value : domain) {
             nextAssignment.assign(variable, value);
-            if (isConsistent(variable, value, assignment, unassignedVars)) {
-                if (enforceFC) forwardCheck(variable, value, unassignedVars);
-                if (solve(nextAssignment, unassignedVars)) return true;
-            }
-            count++;
-            System.out.println(count + "." + nextAssignment + "  failure");
+            if (isConsistent(variable, value, assignment)) {
+                if (enforceFC && forwardCheck(variable, value, unassignedVars)) {
+                    System.out.println(++count + "." + nextAssignment + "  failure");
+                    continue;
+                }
+                if (solve(nextAssignment, new HashMap<>(unassignedVars))) return true;
+            } else System.out.println(++count + "." + nextAssignment + "  failure");
+
             nextAssignment.remove(variable);
             if (count == 30) System.exit(0);
         }
 
-        count++;
-        System.out.println(count + "." + nextAssignment + "  failure");
         return false;
     }
 
