@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CSPSolver:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CSPSolver_jar</output-path>
+    <root id="archive" name="CSPSolver.jar">
+      <element id="module-output" name="CSPSolver" />
+    </root>
+  </artifact>
+</component>
